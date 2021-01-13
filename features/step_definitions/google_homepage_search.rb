@@ -1,39 +1,66 @@
+require_relative '../pages/homePage.rb'
+require_relative '../pages/basePage.rb'
+require_relative '../pages/bookPage.rb'
+require_relative '../pages/searchResultsPage.rb'
+
+
+
+
+
 Given('I’m on the homepage') do
-    pending # Write code here that turns the phrase above into concrete actions
-  end
+  @home_page = HomePage.new(@browser)
+  @home_page.visit_home
+end
   
   When('I type “The name of the wind” into the search field') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @home_page.search("The name of the wind")
   end
   
+=begin 
+  TODO : the steps could be implemented in a different way. "I search " , then I don't need to be tied to the specific components and I would implement this
+   in this way
+   When('I search for a book') do
+     home_page.search 
+   and having two methods inside of home_page.search
+
+   def HomePage::Search(name_of_the_book)
+      search_textbox.send_keys(name_of_the_book)
+      search_button.click
+   end
+=end
   When('I click the Google Search button') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @home_page.search_button.click
   end
-  
+
+
   Then('I go to the search results page') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @search_results = SearchResPage.new(@browser)
+    expect(@search_results.isCurrentPage) 
   end
   
   Then('the first result is “The Name of the Wind - Patrick Rothfuss”') do
-    pending # Write code here that turns the phrase above into concrete actions
+    expect(@search_results.isFirstResult("The Name of the Wind" , "Patrick Rothfuss"))
   end
   
   When('I click on the first result link') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @search_results.get_first_link
   end
   
   Then('I go to the “Patrick Rothfuss - The Books” page') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @book_page = BookPage.new(@browser)
+    @book_page.verify_author("Patrick Rothfuss")
   end
   
   When('I type “The name of the w” into the search field') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @book_page = BookPage.new(@browser)
+
+    @book_page.search("The name of the w")
   end
   
   When('the suggestions list is displayed') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @book_page.isListDisplayed()
   end
   
   When('I click on the first suggestion in the list') do
-    pending # Write code here that turns the phrase above into concrete actions
+    @book_page.get_first_link
   end
