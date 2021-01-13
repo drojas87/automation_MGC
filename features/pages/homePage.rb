@@ -19,11 +19,17 @@ class HomePage < BasePage
     end
 
     def isListDisplayed
-        return true
+        element = @browser.div(:text => "Clear")
+        element_present = @browser.wait_until_present(element) rescue false    
+        if element_present
+            return true
+        else 
+            return false
+        end
     end
 
     def get_first_suggestion
-
+        @browser.div(xpath:"//*[@id='tsf']/div[2]/div[1]/div[2]/div[2]/ul/li[1]/div")
     end
 =begin
     this should be a private field and it should be accesed in search method . I would change the steps definition

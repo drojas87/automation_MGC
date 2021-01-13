@@ -30,6 +30,7 @@ end
 
   Then('I go to the search results page') do
     @search_results = SearchResPage.new(@browser)
+    @searc_results.wait_until_loaded
     expect(@search_results.isCurrentPage) 
   end
   
@@ -52,9 +53,9 @@ end
   end
   
   When('the suggestions list is displayed') do
-    @home_page.isListDisplayed()
+    expect(@home_page.isListDisplayed())
   end
   
   When('I click on the first suggestion in the list') do
-    @home_page.get_first_suggestion
+    @home_page.get_first_suggestion.click
   end
