@@ -5,7 +5,8 @@ class SearchResPage < BasePage
     include PageObject
 
     def wait_until_loaded
-
+        element = @browser.div(class:"clear-button")
+        element_present = @browser.wait_until(element) rescue false    
     end
 
     def isCurrentPage    

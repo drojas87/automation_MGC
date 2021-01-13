@@ -30,7 +30,7 @@ end
 
   Then('I go to the search results page') do
     @search_results = SearchResPage.new(@browser)
-    @searc_results.wait_until_loaded
+    @search_results.wait_until_loaded
     expect(@search_results.isCurrentPage) 
   end
   
