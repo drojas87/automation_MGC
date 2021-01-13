@@ -1,11 +1,6 @@
 require_relative '../pages/homePage.rb'
 require_relative '../pages/basePage.rb'
-require_relative '../pages/bookPage.rb'
 require_relative '../pages/searchResultsPage.rb'
-
-
-
-
 
 Given('I’m on the homepage') do
   @home_page = HomePage.new(@browser)
@@ -47,20 +42,18 @@ end
   end
   
   Then('I go to the “Patrick Rothfuss - The Books” page') do
-    @book_page = BookPage.new(@browser)
-    @book_page.verify_author("Patrick Rothfuss")
+    @home_page.verify_author("Patrick Rothfuss")
   end
   
   When('I type “The name of the w” into the search field') do
-    @book_page = BookPage.new(@browser)
+    @home_page.search("The name of the w")
 
-    @book_page.search("The name of the w")
   end
   
   When('the suggestions list is displayed') do
-    @book_page.isListDisplayed()
+    @home_page.isListDisplayed()
   end
   
   When('I click on the first suggestion in the list') do
-    @book_page.get_first_link
+    @home_page.get_first_suggestion
   end

@@ -14,6 +14,18 @@ class HomePage < BasePage
     def search(text)
         @browser.text_field(:title => "Buscar").send_keys(text)
     end
+
+    def verify_author(author)
+        return true
+    end
+
+    def isListDisplayed
+        return true
+    end
+
+    def get_first_suggestion
+
+    end
 =begin
     this should be a private field and it should be accesed in search method . I would change the steps definition
 =end
