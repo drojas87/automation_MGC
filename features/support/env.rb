@@ -12,7 +12,7 @@ set_driver(os)
 #For each new test it is going to initialize a new browser instance
 Before do
     @browser = Watir::Browser.new :chrome
-    Watir.default_timeout = 5
+    Watir.default_timeout = 10
     @browser.window.maximize
 end
 

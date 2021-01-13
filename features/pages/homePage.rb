@@ -7,12 +7,11 @@ class HomePage < BasePage
 
     def visit_home
         @browser.goto HOME_URL
+        check_language
     end
 
     def search(text)
-        # TODO : check google language and change it to english if it is in spanish
-        # check_language
-        @browser.text_field(:title => "Buscar").send_keys(text)
+        @browser.text_field(:title => "Search").send_keys(text)
     end
 
     def verify_author(author)
@@ -40,10 +39,10 @@ class HomePage < BasePage
     private 
     
     def check_language
-        #get the language link. if it exists with the text "Español" then click it and change it in order to have google in English. This code should be changed
-        #to manage the exception 
-        element = @browser.link(:text => "Español")
-        if element
+        #get the language link. if it exists with the text "English" then click it and change it in order to have google in English. This code should be changed
+        element = @browser.link(:text => "English")
+        element_present = browser.element.wait_until_present rescue false    
+        if element_present
             element.click
         end
     end

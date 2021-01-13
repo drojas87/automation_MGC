@@ -34,8 +34,8 @@ end
   end
   
   Then('the first result is “The Name of the Wind - Patrick Rothfuss”') do
-    #expect(@search_results.isFirstResult("The Name of the Wind" , "Patrick Rothfuss"))
-    num = 15
+    #TODO : the method is not working
+    expect(@search_results.isFirstResult("The Name of the Wind" , "Patrick Rothfuss"))
   end
   
   When('I click on the first result link') do
