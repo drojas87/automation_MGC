@@ -16,6 +16,10 @@ class SearchResPage < BasePage
         end
     end
 
+    def search_box 
+
+    end
+
     #TODO : Finish to implement this method
     def isFirstResult(book_name , author)
         #Get the text of the first result and compare it with the book name and author passed as arguments
@@ -36,10 +40,10 @@ class SearchResPage < BasePage
     end
 
     def get_first_link        
-        return @browser.link(xpath:"//*[@id='rso']/div[1]/div[1]/div/div[1]/a")
-
-        
+        return @browser.link(xpath:"//*[@id='rso']/div[1]/div[1]/div/div[1]/a")        
     end
+
+
 
 end
 
