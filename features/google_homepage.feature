@@ -16,5 +16,5 @@ Then I see the results page
 When I go to see the images for the book title and author 
 Then I can see a list of images
 When I select the first image
-Then The image is open in a bigger size
+Then The image is opened in a bigger size
 And the title description contains the book title

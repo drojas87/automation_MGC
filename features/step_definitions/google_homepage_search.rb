@@ -50,7 +50,7 @@ require 'rspec/expectations'
   end
   
   Then('the title description contains the book title') do
-    expect(@results.check_title_in_image("Los siete locos"))
+    expect(@results.check_title_in_image("Los siete locos")).to eq(true)
   end
 
   When('I search for "Los siete locos - Roberto Arlt"') do

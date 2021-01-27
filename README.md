@@ -27,3 +27,4 @@ TODO :
 
 - Order the properties and methods in all clases
 - Add super to use the base methods
+- Add the ability to search by any book-title

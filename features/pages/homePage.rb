@@ -13,13 +13,9 @@ class HomePage < BasePage
 
     def visit_home
         @browser.goto HOME_URL
-        #check_language
     end
 
     def search(text)
-        #@browser.text_field(:title => "Search").send_keys(text)
-        # title could change according to google configuration, so I use xpath then. Solution could changing the language in the before method
-
         @browser.text_field(xpath:"//*[@id='tsf']/div[2]/div[1]/div[1]/div/div[2]/input").send_keys(text)
         search_button.click
     end
@@ -50,9 +46,8 @@ class HomePage < BasePage
 
     private 
     
-    def check_language
-        #get the language link. if it exists with the text "English" then click it and change it in order to have google in English. This code should be changed
-       
+    #deprecated. no need to change language
+    def check_language       
         element_present = @browser.link(:text => "English").wait_until(timeout:10 , &exists?) rescue true    
         if element_present
             @browser.link(:text => "English").click
