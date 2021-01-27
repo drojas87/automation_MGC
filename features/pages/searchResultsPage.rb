@@ -1,12 +1,11 @@
 require_relative 'basePage.rb'
-
+require 'rspec/expectations'
 
 class SearchResPage < BasePage
     include PageObject
 
     def wait_until_loaded
-        element = @browser.div(class:"clear-button")
-        element_present = @browser.wait_until(element) rescue false    
+        @browser.div(id:"footcnt").wait_until(timeout:10,&:exists?)
     end
 
     def isCurrentPage    
@@ -20,27 +19,12 @@ class SearchResPage < BasePage
 
     end
 
-    #TODO : Finish to implement this method
     def isFirstResult(book_name , author)
-        #Get the text of the first result and compare it with the book name and author passed as arguments
-        return true
-=begin       
-        browser.frame(index:0)
-        element = get_first_link
-        result_text = element.text.downcase.strip
-        str_title = book_name.downcase.strip + '-' +  author.downcase.strip
-        
-        if result_text === str_title
-            return true
-        else
-            return false
-        end
-=end
-
+        return get_first_link.text.downcase.strip.include?(book_name.downcase.strip)
     end
 
     def get_first_link        
-        return @browser.link(xpath:"//*[@id='rso']/div[1]/div[1]/div/div[1]/a")        
+        return @browser.link(xpath:"//*[@id='rso']/div[1]/div/div[1]/a") 
     end
 
 

@@ -8,4 +8,8 @@ class BasePage
     def isCurrentPage
 
     end
+
+    def wait_until_loaded
+
+    end
 end

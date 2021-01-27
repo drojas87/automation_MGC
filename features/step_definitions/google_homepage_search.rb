@@ -1,61 +1,59 @@
 require_relative '../pages/homePage.rb'
 require_relative '../pages/basePage.rb'
 require_relative '../pages/searchResultsPage.rb'
+require 'rspec/expectations'
 
-Given('I’m on the homepage') do
-  @home_page = HomePage.new(@browser)
-  @home_page.visit_home
-end
-  
-  When('I type “The name of the wind” into the search field') do
-    @home_page.search("The name of the wind")
-  end
-  
-=begin 
-  TODO : the steps could be implemented in a different way. "I search " , then I don't need to be tied to the specific components and I would implement this
-   in this way
-   When('I search for a book') do
-     home_page.search 
-   and having two methods inside of home_page.search
-
-   def HomePage::Search(name_of_the_book)
-      search_textbox.send_keys(name_of_the_book)
-      search_button.click
-   end
-=end
-  When('I click the Google Search button') do
-    @home_page.search_button.click
+  Given('I’m on google homepage') do
+    @home_page = HomePage.new(@browser)
+    @home_page.visit_home  
   end
 
+  Then('I see the results page') do
+    @results = SearchResPage.new(@browser)
+    @results.wait_until_loaded
+    expect(@results.isCurrentPage).to eq(true)
+  end
+  
+  Then('the first link result is “Los siete locos - Roberto Arlt"') do
+    expect(@results.isFirstResult("Los siete locos" , "Roberto Arlt"))
+  end
+  
+  Then('the link corresponds to wikipedia') do
+    expect(@results.get_first_link.text).to include('Wikipedia')
+  end
+  
+  When('I enter to wikipedia') do
+    @results.get_first_link.click
+  end
+  
+  Then('I should see the name of the book in the title') do
+    @wiki = WikiPage.new(@browser)
+    expect(@wiki.check_title("Los siete locos")).to eq(true)
+  end
+  
+  When('I go to see the images for the book title and author') do
+    #Should I create another page for, "image results" ? that would be more time consuming, I think this lack of clarity is one of the problem with pageObject pattern. 
+    #Just because this is a simple example I will keep using only one results page
+    @results.get_images_link.click
+  end
+  
+  Then('I can see a list of images') do
+    expect(@results.isImageListDisplayed).to eq(true)
+  end
+  
+  When('I select the first image') do
+    @results.get_first_image.click
+  end
+  
+  Then('The image is opened in a bigger size') do
+    expect(@results.isImageDetailDisplayed).to eq(true)
+  end
+  
+  Then('the title description contains the book title') do
+    expect(@results.check_title_in_image("Los siete locos"))
+  end
 
-  Then('I go to the search results page') do
-    @search_results = SearchResPage.new(@browser)
-    #@search_results.wait_until_loaded
-    #expect(@search_results.isCurrentPage) 
+  When('I search for "Los siete locos - Roberto Arlt"') do
+    @home_page.search("Los siete locos - Roberto Arlt")
   end
   
-  Then('the first result is “The Name of the Wind - Patrick Rothfuss”') do
-    #TODO : the method is not working
-    expect(@search_results.isFirstResult("The Name of the Wind" , "Patrick Rothfuss"))
-  end
-  
-  When('I click on the first result link') do
-    @search_results.get_first_link.click
-  end
-  
-  Then('I go to the “Patrick Rothfuss - The Books” page') do
-    @home_page.verify_author("Patrick Rothfuss")
-  end
-  
-  When('I type “The name of the w” into the search field') do
-    @home_page.search("The name of the w")
-
-  end
-  
-  When('the suggestions list is displayed') do
-    expect(@home_page.isListDisplayed())
-  end
-  
-  When('I click on the first suggestion in the list') do
-    @home_page.get_first_suggestion.click
-  end

@@ -2,7 +2,12 @@ require 'page-object'
 require 'watir'
 
 def set_driver(os)
-    chromedriver_path = File.join(File.absolute_path('../..', File.dirname(__FILE__)),"drivers","chromedriver_" + os)
+    chromedriver_path = nil
+    if os === 'linux'
+        chromedriver_path = File.join(File.absolute_path('../..', File.dirname(__FILE__)),"drivers","chromedriver_linux")
+    else
+        chromedriver_path = File.join(File.absolute_path('../..', File.dirname(__FILE__)),"drivers","chromedriver_windows.exe")
+    end
     Selenium::WebDriver::Chrome::Service.driver_path = chromedriver_path
 end
 

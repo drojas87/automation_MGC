@@ -87,6 +87,7 @@ PLATFORMS
 DEPENDENCIES
   cucumber (~> 5.2)
   page-object
+  watir
 
 BUNDLED WITH
    2.2.5
