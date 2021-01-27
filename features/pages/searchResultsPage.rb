@@ -27,6 +27,10 @@ class SearchResPage < BasePage
         return @browser.link(xpath:"//*[@id='rso']/div[1]/div/div[1]/a") 
     end
 
+    def get_images_link
+        return @browser.link(xpath:"//*[@id='hdtb-msb-vis']/div[2]/a")
+    end
+
 
 
 end
