@@ -13,11 +13,14 @@ class HomePage < BasePage
 
     def visit_home
         @browser.goto HOME_URL
-        check_language
+        #check_language
     end
 
     def search(text)
-        @browser.text_field(:title => "Search").send_keys(text)
+        #@browser.text_field(:title => "Search").send_keys(text)
+        # title could change according to google configuration, so I use xpath then. Solution could changing the language in the before method
+
+        @browser.text_field(xpath:"//*[@id='tsf']/div[2]/div[1]/div[1]/div/div[2]/input").send_keys(text)
         search_button.click
     end
 
